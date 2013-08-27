@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"encoding/json"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -20,7 +20,7 @@ var Root = ""
 
 type hub struct {
 	connections map[*connection]bool
-	broadcast   chan string
+	broadcast   chan Search
 	register    chan *connection
 	unregister  chan *connection
 }
@@ -48,7 +48,7 @@ func (h *hub) run() {
 }
 
 var h = hub{
-	broadcast:   make(chan string),
+	broadcast:   make(chan Search),
 	register:    make(chan *connection),
 	unregister:  make(chan *connection),
 	connections: make(map[*connection]bool),
@@ -56,24 +56,12 @@ var h = hub{
 
 type connection struct {
 	ws   *websocket.Conn
-	send chan string
-}
-
-func (c *connection) reader() {
-	for {
-		var message [20]byte
-		n, err := c.ws.Read(message[:])
-		if err != nil {
-			break
-		}
-		h.broadcast <- string(message[:n])
-	}
-	c.ws.Close()
+	send chan Search
 }
 
 func (c *connection) writer() {
-	for message := range c.send {
-		err := websocket.Message.Send(c.ws, message)
+	for search := range c.send {
+		err := websocket.JSON.Send(c.ws, search)
 		if err != nil {
 			break
 		}
@@ -82,11 +70,11 @@ func (c *connection) writer() {
 }
 
 func wsHandler(ws *websocket.Conn) {
-	c := &connection{send: make(chan string, 256), ws: ws}
+	c := &connection{send: make(chan Search, 256), ws: ws}
 	h.register <- c
 	defer func() { h.unregister <- c }()
-	go c.writer()
-	c.reader()
+	c.writer()
+	//c.reader()
 }
 
 func Init() {
@@ -103,42 +91,34 @@ func home(w http.ResponseWriter, r *http.Request) {
 func update(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		body, _ := ioutil.ReadAll(r.Body)
-		search := parseSearch(string(body))
-		h.broadcast <- fmt.Sprintf("%#v", search)
+		search := NewSearch(string(body))
+		h.broadcast <- search
 	}
 }
 
-type search struct {
-	url    string
-	stype  string
-	any    string
-	all    string
-	phrase string
-	text   string
-	state  string
+type Search struct {
+	Url    string   `json:"url"`
+	Type   string   `json:"type"`
+	Any    string   `json:"any"`
+	All    string   `json:"all"`
+	Phrase string   `json:"phrase"`
+	Text   string   `json:"text"`
+	State  []string `json:"state"`
 }
 
-func parseSearch(urlString string) search {
+func NewSearch(urlString string) Search {
 	//"http://chroniclingamerica.loc.gov/search/pages/results/?date1=1836&date2=1922&searchType=advanced&language=&lccn=sn89067273&proxdistance=5&state=Missouri&rows=20&ortext=&proxtext=&phrasetext=humphreys&andtext=&dateFilterType=yearRange&page=8&sort=relevance"
-	/*
-			any words : ortext
-			all words : andtext
-			phrase : phrasetext
-			text : proxtext
-		  search type : searchType
-			date range : date1-date2
-	*/
 	u, _ := url.Parse(urlString)
 	v := u.Query()
-	s := search{}
-	s.url = urlString
-	s.stype = v.Get("searchType")
-	s.any = v.Get("ortext")
-	s.all = v.Get("andtext")
-	s.phrase = v.Get("phrasetext")
-	s.text = v.Get("proxtext")
-	fmt.Printf("%#v\n", v["state"])
-	return s
+	return Search{
+		Url:    urlString,
+		Type:   v.Get("searchType"),
+		Any:    v.Get("ortext"),
+		All:    v.Get("andtext"),
+		Phrase: v.Get("phrasetext"),
+		Text:   v.Get("proxtext"),
+		State:  v["state"],
+	}
 }
 
 func main() {

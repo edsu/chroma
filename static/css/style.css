@@ -1,0 +1,35 @@
+.search .any {
+  background-color: gray;
+}
+
+.search .all {
+  background-color: green;
+}
+
+.search .phrase {
+  background-color: yellow;
+}
+
+.search .text {
+  background-color: #eeeeee;
+}
+
+.search .state {
+  background-color: orange;
+}
+
+.search span {
+  border: thin solid #cccccc;
+  margin: 2px;
+  padding: 3px;
+  border-radius: 1px;
+}
+
+li.search {
+  padding: 10px;
+  font-size: 22pt;
+  list-style-type: none;
+  border: thin dashed #eeeeee;
+  margin: 5px;
+}
+

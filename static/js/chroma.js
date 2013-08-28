@@ -2,6 +2,7 @@
 
   var newspapers = {}
   var last = null;
+  var pause = false;
 
   $.getJSON("/js/newspapers.json", function(data) {
     newspapers = data;
@@ -15,11 +16,16 @@
     socket.onmessage = function (search) {
       add(search);
     }
+    $(document).bind('keydown', 'p', function() {
+      pause = ! pause;
+      console.log("set pause to " + pause);
+    });
   }
 
   function add(msg) {
     var search = JSON.parse(msg.data);
     console.log(search);
+    if (pause) return;
 
     var s = $('<li class="search"></li>');
 

@@ -5,8 +5,35 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="/js/chroma.js"></script>
+    <script src="/js/jquery.hotkeys.js"></script>
   </head>
   <body>
-    <ul id="updates" class="col-4"></ul>
+
+      <div id="col1">
+
+          <div id="logo">
+            <img src="/images/loc.png">
+            <img src="/images/neh.png">
+            Chronicling<br>
+            America Live<br>
+          </div>
+
+          <div id="legend">
+            Legend:
+            <p class="search"><span class="any">any words</span></p>
+            <p class="search"><span class="all">all words</span></p>
+            <p class="search"><span class="phrase">phrase</span><br>
+            <p class="search"><span class="text">close words</span></p>
+            <p class="search"><span class="date">date range</span></p>
+            <p class="search"><span class="state">state</span></p>
+            <p class="search"><span class="newspaper">newspaper</span></p>
+          </div>
+
+      </div>
+
+      <div id="col2">
+        <ul id="updates" class="col-4"></ul>
+      </div>
+
   </body>
 </html>

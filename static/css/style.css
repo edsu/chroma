@@ -1,5 +1,9 @@
+body {
+  font-size: 18pt;
+}
+
 .search .any {
-  background-color: gray;
+  background-color: tan;
 }
 
 .search .all {
@@ -11,7 +15,7 @@
 }
 
 .search .text {
-  background-color: #eeeeee;
+  background-color: #cccccc;
 }
 
 .search .state {
@@ -24,12 +28,11 @@
 }
 
 .search .date {
-    background-color: pink;
+  background-color: pink;
 }
 
 .search .newspaper {
-    background-color: black;
-    color: white;
+  background-color: #777777;
 }
 
 .search span {
@@ -40,21 +43,33 @@
 
 li.search {
   padding: 10px;
-  font-size: 18pt;
   list-style-type: none;
   line-height: 2;
-  border-bottom: thin solid #eeeeee;
+  border-bottom: thin solid #dddddd;
 }
 
 #updates {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-header {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
+#col1 {
+  position: absolute;
+  left: 50px;
+  top: 25px;
+  height: 100%;
+  width: 200px;
 }
 
+#logo {
+  padding-bottom: 30px;
+  border-bottom: thin solid #cccccc;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#legend {
+  text-align: center;
+}
+
+#col2 {
+  margin-left: 240px;
+}

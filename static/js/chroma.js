@@ -18,10 +18,9 @@
   }
 
   function add(msg) {
-    if (last && JSON.stringify(last) == JSON.stringify(msg)) {
-      return;
-    }
     var search = JSON.parse(msg.data);
+    console.log(search);
+
     var s = $('<li class="search"></li>');
 
     if (search.any) {
@@ -53,10 +52,6 @@
       s.append(' in ' + parts.join(" and "));
     }
 
-    if (search.page && search.page != "1") {
-        s.append('<span class="page">page ' + search.page + '</span>');
-    }
-
     if (search.lccn && newspapers && search.lccn[0] != "") {
       var parts = [];
       for (var i=0; i<search.lccn.length; i++) {
@@ -64,6 +59,10 @@
         parts.push('<span class="newspaper">' + newspapers[lccn] + '</span>');
       }
       s.append( " in " + parts.join(" and "));
+    }
+
+    if (search.page && search.page != "1") {
+        s.append('<span class="page">page ' + search.page + '</span>');
     }
 
     if (last == s.html()) return;

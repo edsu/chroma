@@ -43,7 +43,7 @@ li.search {
   font-size: 18pt;
   list-style-type: none;
   line-height: 2;
-  border-bottom: 2px dashed #eeeeee;
+  border-bottom: thin solid #eeeeee;
 }
 
 #updates {

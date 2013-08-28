@@ -103,6 +103,10 @@ type Search struct {
 	All    string   `json:"all"`
 	Phrase string   `json:"phrase"`
 	Text   string   `json:"text"`
+	Page   string   `json:"page"`
+	Date1  string   `json:"date1"`
+	Date2  string   `json:"date2"`
+	LCCN   []string `json:"lccn"`
 	State  []string `json:"state"`
 }
 
@@ -117,7 +121,11 @@ func NewSearch(urlString string) Search {
 		All:    v.Get("andtext"),
 		Phrase: v.Get("phrasetext"),
 		Text:   v.Get("proxtext"),
+		Page:   v.Get("page"),
+		Date1:  v.Get("date1"),
+		Date2:  v.Get("date2"),
 		State:  v["state"],
+		LCCN:   v["lccn"],
 	}
 }
 

@@ -33,13 +33,17 @@
       u = addView(update)
     }
 
-    u.hide();
-    $("#updates").prepend(u);
-    u.slideDown();
+    if (u) {
+      u.hide();
+      $("#updates").prepend(u);
+      u.slideDown();
+    }
   }
 
   function addView(view) {
     var s = $('<li class="view"></li>');
+    var newspaper = newspapers[view.lccn];
+    if (! newspaper) return null;
     s.append('<span class="newspaper">' + newspapers[view.lccn] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');

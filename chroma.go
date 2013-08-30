@@ -6,12 +6,14 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"regexp"
 	"runtime"
 
 	"code.google.com/p/go.net/websocket"
 )
 
 var Root = ""
+var viewPattern = regexp.MustCompile(`http://chroniclingamerica.loc.gov/lccn/(\w+)/(?:(\d+-\d+-\d+)/)?(?:ed-(\d+)/)?(?:seq-(\d+)/)?`)
 
 // hub and connection are abstractions for keeping track of open websocket
 // connections & sending broadcast events to them
@@ -19,7 +21,7 @@ var Root = ""
 
 type hub struct {
 	connections map[*connection]bool
-	broadcast   chan Search
+	broadcast   chan interface{}
 	register    chan *connection
 	unregister  chan *connection
 }
@@ -47,7 +49,7 @@ func (h *hub) run() {
 }
 
 var h = hub{
-	broadcast:   make(chan Search),
+	broadcast:   make(chan interface{}),
 	register:    make(chan *connection),
 	unregister:  make(chan *connection),
 	connections: make(map[*connection]bool),
@@ -55,7 +57,7 @@ var h = hub{
 
 type connection struct {
 	ws   *websocket.Conn
-	send chan Search
+	send chan interface{}
 }
 
 func (c *connection) writer() {
@@ -69,11 +71,10 @@ func (c *connection) writer() {
 }
 
 func wsHandler(ws *websocket.Conn) {
-	c := &connection{send: make(chan Search, 256), ws: ws}
+	c := &connection{send: make(chan interface{}, 256), ws: ws}
 	h.register <- c
 	defer func() { h.unregister <- c }()
 	c.writer()
-	//c.reader()
 }
 
 func Init() {
@@ -90,7 +91,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 func update(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		body, _ := ioutil.ReadAll(r.Body)
-		search := NewSearch(string(body))
+		search := NewUpdate(string(body))
 		h.broadcast <- search
 	}
 }
@@ -109,22 +110,43 @@ type Search struct {
 	State  []string `json:"state"`
 }
 
-func NewSearch(urlString string) Search {
-	//"http://chroniclingamerica.loc.gov/search/pages/results/?date1=1836&date2=1922&searchType=advanced&language=&lccn=sn89067273&proxdistance=5&state=Missouri&rows=20&ortext=&proxtext=&phrasetext=humphreys&andtext=&dateFilterType=yearRange&page=8&sort=relevance"
-	u, _ := url.Parse(urlString)
-	v := u.Query()
-	return Search{
-		Url:    urlString,
-		Type:   v.Get("searchType"),
-		Any:    v.Get("ortext"),
-		All:    v.Get("andtext"),
-		Phrase: v.Get("phrasetext"),
-		Text:   v.Get("proxtext"),
-		Page:   v.Get("page"),
-		Date1:  v.Get("date1"),
-		Date2:  v.Get("date2"),
-		State:  v["state"],
-		LCCN:   v["lccn"],
+type View struct {
+	Type    string `json:"type"`
+	Url     string `json:"url"`
+	LCCN    string `json:"lccn"`
+	Date    string `json:"date"`
+	Edition string `json:"edition"`
+	Page    string `json:"page"`
+}
+
+func NewUpdate(urlString string) interface{} {
+	parsedUrl, _ := url.Parse(urlString)
+	q := parsedUrl.Query()
+
+	if len(q) > 0 {
+		return Search{
+			Type:   "search",
+			Url:    urlString,
+			Any:    q.Get("ortext"),
+			All:    q.Get("andtext"),
+			Phrase: q.Get("phrasetext"),
+			Text:   q.Get("proxtext"),
+			Page:   q.Get("page"),
+			Date1:  q.Get("date1"),
+			Date2:  q.Get("date2"),
+			State:  q["state"],
+			LCCN:   q["lccn"],
+		}
+	}
+
+	m := viewPattern.FindStringSubmatch(urlString)
+	return View{
+		Type:    "view",
+		Url:     urlString,
+		LCCN:    m[1],
+		Date:    m[2],
+		Edition: m[3],
+		Page:    m[4],
 	}
 }
 

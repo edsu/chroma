@@ -2,37 +2,38 @@ body {
   font-size: 18pt;
 }
 
-.search .any {
+.any {
   background-color: tan;
 }
 
-.search .all {
+.all {
   background-color: green;
 }
 
-.search .phrase {
+.phrase {
   background-color: yellow;
 }
 
-.search .text {
+.text {
   background-color: #cccccc;
 }
 
-.search .state {
+.state {
   background-color: orange;
 }
 
-.search .page {
+.page {
   font-size: smaller;
   font-style: italic;
+  border: thin solid #cccccc;
 }
 
-.search .date {
+.date {
   background-color: pink;
 }
 
-.search .newspaper {
-  background-color: #777777;
+.newspaper {
+  background-color: lightblue;
 }
 
 .search span {
@@ -41,7 +42,13 @@ body {
   border-radius: 5px;
 }
 
-li.search {
+.view span {
+  margin :7px;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+li {
   padding: 10px;
   list-style-type: none;
   line-height: 2;

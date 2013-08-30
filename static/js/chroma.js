@@ -3,6 +3,7 @@
   var newspapers = {}
   var last = null;
   var pause = false;
+  var filter = 'all';
 
   $.getJSON("/js/newspapers.json", function(data) {
     newspapers = data;
@@ -16,17 +17,19 @@
     socket.onmessage = function (search) {
       add(search);
     }
+    $('select#filter').change(function() {
+      filter = $('select#filter').val();
+    });
   }
 
   function add(msg) {
     var update = JSON.parse(msg.data);
-    console.log(update);
     if (pause) return;
 
     var u = null;
-    if (update.type == "search") {
+    if (update.type == "search" && filter != "view") {
       u = addSearch(update)
-    } else if (update.type == "view") {
+    } else if (update.type == "view" && filter != "search") {
       u = addView(update)
     }
 
@@ -95,6 +98,6 @@
     return s;
   }
 
-  main();
+  $(main);
 
 })(jQuery);

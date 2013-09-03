@@ -44,18 +44,20 @@
     var s = $('<li class="view"></li>');
     var newspaper = newspapers[view.lccn];
     if (! newspaper) return null;
-    s.append('<span class="newspaper">' + newspapers[view.lccn] + '</span>');
+    if (view.page) {
+      s.append(' <span class="page">page ' + view.page + '</span> of ');
+    }
+    var title = newspaper['title'].replace(/\.$/, '');
+    s.append('<span class="newspaper">' + title + '</span>');
+    s.append('from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');
     } 
-    if (view.page) {
-      s.append(' on <span class="page">page ' + view.page + '</span>');
-    }
     return s;
   }
 
   function addSearch(search) {
-    var s = $('<li class="search"></li>');
+    var s = $('<li class="search">Search: </li>');
 
     if (search.any) {
       s.append('<span class="any">' + search.any + '</span>');
@@ -81,7 +83,7 @@
       var parts = [];
       for (var i=0; i<search.state.length; i++) {
         var state = search.state[i];
-        parts.push('<span class="state">' + state + '</span>');
+        parts.push('<span class="place">' + state + '</span>');
       }
       s.append(' in ' + parts.join(" and "));
     }
@@ -90,7 +92,7 @@
       var parts = [];
       for (var i=0; i<search.lccn.length; i++) {
         var lccn = search.lccn[i];
-        parts.push('<span class="newspaper">' + newspapers[lccn] + '</span>');
+        parts.push('<span class="newspaper">' + newspapers[lccn]['title'] + '</span>');
       }
       s.append( " in " + parts.join(" and "));
     }

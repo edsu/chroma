@@ -36,7 +36,7 @@
     }
 
     var opts = {
-      radius: 4,
+      radius: 6,
       fillColor: "red",
       color: "red",
       weight: 1,

@@ -23,29 +23,35 @@
       </div>
 
       <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 20px;">
           <div class="col-lg-2">
 
           <div id="legend">
             Legend:
-            <p class="search"><span class="any">any words</span></p>
-            <p class="search"><span class="all">all words</span></p>
-            <p class="search"><span class="phrase">phrase</span><br>
-            <p class="search"><span class="text">close words</span></p>
-            <p class="search"><span class="date">date range</span></p>
-            <p class="search"><span class="place">place</span></p>
-            <p class="search"><span class="newspaper">newspaper</span></p>
+            <ul class="list-unstyled">
+              <li class="search"><span class="any">any words</span></li>
+              <li class="search"><span class="all">all words</span></li>
+              <li class="search"><span class="phrase">phrase</span><br>
+              <li class="search"><span class="text">close words</span></li>
+              <li class="search"><span class="date">date range</span></li>
+              <li class="search"><span class="place">place</span></li>
+              <li class="search"><span class="newspaper">newspaper</span></li>
+            </ul>
+
             <br>
-            Filter:<br>
+            <br>
+
             <form>
-              <select id="filter">
-                <option value="all">All</option>
-                <option value="view">Views</option>
-                <option value="search">Searches</option>
+              <select class="form-control" id="filter">
+                <option value="all">View All</option>
+                <option value="view">Only Page Views</option>
+                <option value="search">Only Searches</option>
               </select>
-              <br>
-              <br>
-              <input name="bots" type="checkbox">Include Bots
+              <div class="checkbox">
+                <label>
+                  <input name="bots" type="checkbox">Include Bots
+                </label>
+              </div>
             </form>
           </div>
 

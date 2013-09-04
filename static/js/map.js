@@ -35,7 +35,7 @@
     var lccn = update.lccn;
     var newspaper = newspapers[lccn];
     if (! newspaper || ! newspaper['geo']) {
-      console.log('missing geo: ' + update);
+      console.log('missing geo: ' + update.lccn);
       return;
     }
 

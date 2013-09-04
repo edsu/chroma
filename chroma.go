@@ -2,7 +2,8 @@ package main
 
 import (
 	"html/template"
-	"io/ioutil"
+	//"io/ioutil"
+	"encoding/json"
 	"net/http"
 	"net/url"
 	"path"
@@ -94,65 +95,77 @@ func mapView(w http.ResponseWriter, r *http.Request) {
 	mapTemplate.Execute(w, nil)
 }
 
+type Hit struct {
+	Url       string `json:"url"`
+	UserAgent string `json:"userAgent"`
+}
+
 func update(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		body, _ := ioutil.ReadAll(r.Body)
-		search := NewUpdate(string(body))
-		h.broadcast <- search
+		dec := json.NewDecoder(r.Body)
+		var v map[string]string
+		if err := dec.Decode(&v); err == nil {
+			update := NewUpdate(v["url"], v["userAgent"])
+			h.broadcast <- update
+		}
 	}
 }
 
 type Search struct {
-	Url    string   `json:"url"`
-	Type   string   `json:"type"`
-	Any    string   `json:"any"`
-	All    string   `json:"all"`
-	Phrase string   `json:"phrase"`
-	Text   string   `json:"text"`
-	Page   string   `json:"page"`
-	Date1  string   `json:"date1"`
-	Date2  string   `json:"date2"`
-	LCCN   []string `json:"lccn"`
-	State  []string `json:"state"`
+	Url       string   `json:"url"`
+	Type      string   `json:"type"`
+	Any       string   `json:"any"`
+	All       string   `json:"all"`
+	Phrase    string   `json:"phrase"`
+	Text      string   `json:"text"`
+	Page      string   `json:"page"`
+	Date1     string   `json:"date1"`
+	Date2     string   `json:"date2"`
+	UserAgent string   `json:"userAgent"`
+	LCCN      []string `json:"lccn"`
+	State     []string `json:"state"`
 }
 
 type View struct {
-	Type    string `json:"type"`
-	Url     string `json:"url"`
-	LCCN    string `json:"lccn"`
-	Date    string `json:"date"`
-	Edition string `json:"edition"`
-	Page    string `json:"page"`
+	Type      string `json:"type"`
+	Url       string `json:"url"`
+	LCCN      string `json:"lccn"`
+	Date      string `json:"date"`
+	Edition   string `json:"edition"`
+	Page      string `json:"page"`
+	UserAgent string `json:"userAgent"`
 }
 
-func NewUpdate(urlString string) interface{} {
+func NewUpdate(urlString string, userAgent string) interface{} {
 	parsedUrl, _ := url.Parse(urlString)
 	q := parsedUrl.Query()
 
 	if len(q) > 0 {
 		return Search{
-			Type:   "search",
-			Url:    urlString,
-			Any:    q.Get("ortext"),
-			All:    q.Get("andtext"),
-			Phrase: q.Get("phrasetext"),
-			Text:   q.Get("proxtext"),
-			Page:   q.Get("page"),
-			Date1:  q.Get("date1"),
-			Date2:  q.Get("date2"),
-			State:  q["state"],
-			LCCN:   q["lccn"],
+			Type:      "search",
+			Url:       urlString,
+			Any:       q.Get("ortext"),
+			All:       q.Get("andtext"),
+			Phrase:    q.Get("phrasetext"),
+			Text:      q.Get("proxtext"),
+			Page:      q.Get("page"),
+			Date1:     q.Get("date1"),
+			Date2:     q.Get("date2"),
+			State:     q["state"],
+			LCCN:      q["lccn"],
+			UserAgent: userAgent,
 		}
 	}
 
 	m := viewPattern.FindStringSubmatch(urlString)
 	return View{
-		Type:    "view",
-		Url:     urlString,
-		LCCN:    m[1],
-		Date:    m[2],
-		Edition: m[3],
-		Page:    m[4],
+		Type:      "view",
+		Url:       urlString,
+		LCCN:      m[1],
+		Date:      m[2],
+		Edition:   m[3],
+		Page:      m[4],
+		UserAgent: userAgent,
 	}
 }
 

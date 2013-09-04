@@ -4,6 +4,7 @@
   var last = null;
   var pause = false;
   var filter = 'all';
+  var bots = false;
 
   $.getJSON("/js/newspapers.json", function(data) {
     newspapers = data;
@@ -20,11 +21,20 @@
     $('select#filter').change(function() {
       filter = $('select#filter').val();
     });
+
+    $('input[type="checkbox"]').change(function() {
+      bots = $('input[type="checkbox"]').is(':checked');
+    });
+  }
+
+  function isBot(update) {
+    return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)") 
   }
 
   function add(msg) {
     var update = JSON.parse(msg.data);
     if (pause) return;
+    if (! bots && isBot(update)) return; 
 
     var u = null;
     if (update.type == "search" && filter != "view") {

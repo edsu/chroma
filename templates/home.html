@@ -3,20 +3,28 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="/js/chroma.js"></script>
-    <script src="/js/jquery.hotkeys.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen">
+
   </head>
   <body>
 
-      <div id="col1">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar">foo</span>
+            <span class="icon-bar">bar</span>
+          </button>
+          <a class="navbar-brand" href="/">Chronicling America Live</a>
+          <ul class="navbar-nav">
+            <li class="active"><a href="/">Stream</a></li>
+            <li><a href="/map/">Map</a></li>
+          </ul>
+        </div>
+      </div>
 
-          <div id="logo">
-            Chronicling<br>
-            America Live<br><br>
-            <img src="/images/loc.png">
-            <img src="/images/neh.png">
-          </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-2">
 
           <div id="legend">
             Legend:
@@ -41,11 +49,16 @@
             </form>
           </div>
 
+          </div>
+
+          <div class="col-lg-10">
+          <ul id="updates" class="col-4"></ul>
+          </div>
+
       </div>
 
-      <div id="col2">
-        <ul id="updates" class="col-4"></ul>
-      </div>
+      <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+      <script src="/js/chroma.js"></script>
 
   </body>
 </html>

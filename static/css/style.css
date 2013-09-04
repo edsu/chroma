@@ -1,5 +1,5 @@
 body {
-  font-size: 18pt;
+  padding-top: 75px;
 }
 
 .any {
@@ -58,26 +58,7 @@ li {
 #updates {
 }
 
-#col1 {
-  position: absolute;
-  left: 50px;
-  top: 25px;
-  height: 100%;
-  width: 200px;
-}
-
-#logo {
-  padding-bottom: 30px;
-  border-bottom: thin solid #cccccc;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
 #legend {
   text-align: center;
   font-size: 12pt;
-}
-
-#col2 {
-  margin-left: 240px;
 }

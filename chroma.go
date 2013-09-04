@@ -88,6 +88,12 @@ func home(w http.ResponseWriter, r *http.Request) {
 	homeTemplate.Execute(w, nil)
 }
 
+func mapView(w http.ResponseWriter, r *http.Request) {
+	f := path.Join(Root, "templates/map.html")
+	mapTemplate := template.Must(template.ParseFiles(f))
+	mapTemplate.Execute(w, nil)
+}
+
 func update(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		body, _ := ioutil.ReadAll(r.Body)
@@ -159,6 +165,7 @@ func main() {
 	http.Handle("/images/", static)
 	http.Handle("/stream", websocket.Handler(wsHandler))
 	http.HandleFunc("/update", update)
+	http.HandleFunc("/map/", mapView)
 	http.HandleFunc("/", home)
 	http.ListenAndServe(":8080", nil)
 }

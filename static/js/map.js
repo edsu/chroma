@@ -26,8 +26,14 @@
     }
   }
 
+  function isBot(update) {
+    return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)") 
+  }
+
   function add(msg) {
     var update = JSON.parse(msg.data);
+    if (isBot(update)) return;
+
     var lccn = update.lccn;
     var newspaper = newspapers[lccn];
     if (! newspaper['geo']) {
@@ -41,10 +47,11 @@
       color: "red",
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.2
+      fillOpacity: 0.2,
+      bounceOnAdd: true
     };
 
-    var circle = new L.CircleMarker(new L.LatLng(newspaper.geo[0], newspaper.geo[1]), opts);
+    var circle = new L.Marker(new L.LatLng(newspaper.geo[0], newspaper.geo[1]), opts);
     map.addLayer(circle);
   }
 

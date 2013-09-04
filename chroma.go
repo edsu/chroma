@@ -1,9 +1,10 @@
 package main
 
 import (
-	"html/template"
-	//"io/ioutil"
 	"encoding/json"
+	"html/template"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -102,11 +103,17 @@ type Hit struct {
 
 func update(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		dec := json.NewDecoder(r.Body)
-		var v map[string]string
-		if err := dec.Decode(&v); err == nil {
-			update := NewUpdate(v["url"], v["userAgent"])
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			log.Println("unable to read post body", err)
+			return
+		}
+		var hit Hit
+		if err := json.Unmarshal(body, &hit); err == nil {
+			update := NewUpdate(hit.Url, hit.UserAgent)
 			h.broadcast <- update
+		} else {
+			log.Println("unable to unmarshall json", body)
 		}
 	}
 }

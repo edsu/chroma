@@ -14,8 +14,6 @@
     newspapers = data;
   });
 
-  var newspaperLayer = L.geoJson().addTo(map);
-
   function listen() {
     var socket = new WebSocket('ws://'+ document.location.host + "/stream");
     socket.onerror = function (error) {
@@ -36,7 +34,7 @@
 
     var lccn = update.lccn;
     var newspaper = newspapers[lccn];
-    if (! newspaper['geo']) {
+    if (! newspaper || ! newspaper['geo']) {
       console.log('missing geo: ' + update);
       return;
     }
@@ -51,8 +49,19 @@
       bounceOnAdd: true
     };
 
-    var circle = new L.Marker(new L.LatLng(newspaper.geo[0], newspaper.geo[1]), opts);
-    map.addLayer(circle);
+    latlng = new L.LatLng(newspaper.geo[0], newspaper.geo[1]);
+    var marker = new L.Marker(latlng, opts);
+    marker.on("mouseover", displayNewspapers);
+    marker.newspaper = newspaper;
+    marker.newspaper.lccn = lccn;
+    marker.addTo(map);
+  }
+
+  function displayNewspapers(e) {
+    var n = e.target.newspaper;
+    var link = '<a target="_new" href="http://chroniclingamerica.loc.gov/lccn/' + n.lccn + '">' + n.title + '</a> ' + n.city + ', ' + n.state;
+    e.target.bindPopup(link);
+    var latlng = e.target.getLatLng();
   }
 
   $(document).ready(listen);

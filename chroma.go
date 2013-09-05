@@ -32,8 +32,10 @@ func (h *hub) run() {
 	for {
 		select {
 		case c := <-h.register:
+			log.Println("new connection", c.ws.Request().RemoteAddr)
 			h.connections[c] = true
 		case c := <-h.unregister:
+			log.Println("closing connection", c.ws.Request().RemoteAddr)
 			delete(h.connections, c)
 			close(c.send)
 		case m := <-h.broadcast:
@@ -66,6 +68,7 @@ func (c *connection) writer() {
 	for search := range c.send {
 		err := websocket.JSON.Send(c.ws, search)
 		if err != nil {
+			log.Println("uhoh: ", err)
 			break
 		}
 	}

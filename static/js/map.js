@@ -26,7 +26,7 @@
 
   function add(msg) {
     var update = JSON.parse(msg.data);
-    if (isBot(update)) return;
+    if (isBot(update.userAgent)) return;
 
     var lccn = update.lccn;
     var newspaper = newspapers[lccn];

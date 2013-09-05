@@ -1,3 +1,9 @@
-function isBot(update) {
-  return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)|(msnbot)|(bot)") 
+function isBot(ua) {
+  if (/bingbot/i.exec(ua)) return "Bing";
+  if (/googlebot/i.exec(ua)) return "Google";
+  if (/baidu/i.exec(ua)) return "Baidu";
+  if (/yandex/i.exec(ua)) return "Yandex";
+  if (/msnbot/i.exec(ua)) return "Bing";
+  if (/(spider)|(bot)/i.exec(ua)) return "Bot";
+  return null;
 }

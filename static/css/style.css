@@ -41,6 +41,10 @@ body {
   background-color: lightblue;
 }
 
+.bot {
+  background-color: lightgreen;
+}
+
 .search {
   font-size: 14pt;
 }
@@ -81,4 +85,13 @@ li {
 #map {
   width: 100%;
   height: 100%;
+}
+
+#frontpages {
+  text-align: center;
+}
+
+img {
+  height: 600px;
+  vertical-align: top;
 }

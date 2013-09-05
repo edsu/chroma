@@ -99,6 +99,12 @@ func mapView(w http.ResponseWriter, r *http.Request) {
 	mapTemplate.Execute(w, nil)
 }
 
+func frontpagesView(w http.ResponseWriter, r *http.Request) {
+	f := path.Join(Root, "templates/frontpages.html")
+	mapTemplate := template.Must(template.ParseFiles(f))
+	mapTemplate.Execute(w, nil)
+}
+
 type Hit struct {
 	Url       string `json:"url"`
 	UserAgent string `json:"userAgent"`
@@ -195,6 +201,7 @@ func main() {
 	http.Handle("/stream", websocket.Handler(wsHandler))
 	http.HandleFunc("/update", update)
 	http.HandleFunc("/map/", mapView)
+	http.HandleFunc("/frontpages/", frontpagesView)
 	http.HandleFunc("/", stream)
 	http.ListenAndServe(":8080", nil)
 }

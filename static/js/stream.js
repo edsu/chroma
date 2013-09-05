@@ -34,7 +34,6 @@
     last = update;
 
     if (pause) return;
-    if (! bots && isBot(update)) return; 
 
     var u = null;
     if (update.type == "search" && filter != "view") {
@@ -51,6 +50,9 @@
   }
 
   function addView(view) {
+    var bot = isBot(view.userAgent);
+    if (! bots && bot) return; 
+
     var s = $('<li class="view"></li>');
     var newspaper = newspapers[view.lccn];
     if (! newspaper) return null;
@@ -62,6 +64,9 @@
     s.append('from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');
+    }
+    if (bot) {
+      s.append('<span class="bot">' + bot + '</span>');
     }
     return s;
   }

@@ -88,20 +88,23 @@ func Init() {
 }
 
 func stream(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/stream.html")
-	streamTemplate := template.Must(template.ParseFiles(f))
+	streamTemplate := template.Must(template.ParseFiles(s, f))
 	streamTemplate.Execute(w, nil)
 }
 
 func mapView(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/map.html")
-	mapTemplate := template.Must(template.ParseFiles(f))
+	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
 
 func frontpagesView(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/frontpages.html")
-	mapTemplate := template.Must(template.ParseFiles(f))
+	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
 

@@ -53,7 +53,7 @@
     var bot = isBot(view.userAgent);
     if (! bots && bot) return; 
 
-    var s = $('<li class="view"></li>');
+    var s = $('<li class="search"></li>');
     var newspaper = newspapers[view.lccn];
     if (! newspaper) return null;
     if (view.page) {

@@ -1,34 +1,11 @@
-<!doctype html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-  </head>
-  <body>
-
-      <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar">foo</span>
-            <span class="icon-bar">bar</span>
-          </button>
-          <a class="navbar-brand" href="/">Chronicling America Live</a>
-          <ul class="navbar-nav">
-            <li><a href="/">Stream</a></li>
-            <li class="active"><a href="/map/">Map</a></li>
-            <li><a href="/frontpages/">Front Pages</a></li>
-          </ul>
-        </div>
-      </div>
-
+{{define "content"}}
       <div id="map" class="map"></div>
+{{end}}
 
+{{define "scripts"}}
       <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
       <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
       <script src="/js/bouncemarker.js"></script>
       <script src="/js/utils.js"></script>
       <script src="/js/map.js"></script>
-    </body>
-</html>
+{{end}}

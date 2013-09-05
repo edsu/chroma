@@ -45,11 +45,11 @@ body {
   background-color: lightgreen;
 }
 
-.search {
+.update {
   font-size: 14pt;
 }
 
-.search span {
+.update span {
   margin: 7px;
   padding: 7px;
   border-radius: 5px;
@@ -62,7 +62,7 @@ body {
   font-size: 14pt;
 }
 
-li.search {
+li.update {
   padding: 10px;
   list-style-type: none;
   line-height: 2;

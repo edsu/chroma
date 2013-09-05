@@ -53,7 +53,7 @@
     var bot = isBot(view.userAgent);
     if (! bots && bot) return; 
 
-    var s = $('<li class="search"></li>');
+    var s = $('<li class="update"></li>');
     var newspaper = newspapers[view.lccn];
     if (! newspaper) return null;
     if (view.page) {
@@ -72,7 +72,7 @@
   }
 
   function addSearch(search) {
-    var s = $('<li class="search">Search: </li>');
+    var s = $('<li class="update">Search: </li>');
 
     if (search.any) {
       s.append('<span class="any">' + search.any + '</span>');

@@ -179,8 +179,8 @@ func NewUpdate(urlString string, userAgent string) interface{} {
 	if len(m) >= 3 {
 		v.Date = m[2]
 	}
-	if len(m) >= 4 {
-		v.Page = m[3]
+	if len(m) >= 5 {
+		v.Page = m[4]
 	}
 	return v
 }

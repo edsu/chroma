@@ -58,7 +58,7 @@ body {
   font-size: 14pt;
 }
 
-li {
+li.search {
   padding: 10px;
   list-style-type: none;
   line-height: 2;

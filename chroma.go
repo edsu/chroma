@@ -88,14 +88,16 @@ func Init() {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/home.html")
-	homeTemplate := template.Must(template.ParseFiles(f))
+	homeTemplate := template.Must(template.ParseFiles(s, f))
 	homeTemplate.Execute(w, nil)
 }
 
 func mapView(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/map.html")
-	mapTemplate := template.Must(template.ParseFiles(f))
+	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
 

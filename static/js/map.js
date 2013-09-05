@@ -24,10 +24,6 @@
     }
   }
 
-  function isBot(update) {
-    return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)") 
-  }
-
   function add(msg) {
     var update = JSON.parse(msg.data);
     if (isBot(update)) return;

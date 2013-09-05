@@ -65,6 +65,11 @@ li {
   border-bottom: thin solid #dddddd;
 }
 
+#legend li {
+  border-bottom: none;
+  padding: 3px;
+}
+
 #updates {
 }
 

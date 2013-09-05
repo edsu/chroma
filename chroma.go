@@ -87,10 +87,10 @@ func Init() {
 	Root = path.Dir(filename)
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-	f := path.Join(Root, "templates/home.html")
-	homeTemplate := template.Must(template.ParseFiles(f))
-	homeTemplate.Execute(w, nil)
+func stream(w http.ResponseWriter, r *http.Request) {
+	f := path.Join(Root, "templates/stream.html")
+	streamTemplate := template.Must(template.ParseFiles(f))
+	streamTemplate.Execute(w, nil)
 }
 
 func mapView(w http.ResponseWriter, r *http.Request) {
@@ -195,6 +195,6 @@ func main() {
 	http.Handle("/stream", websocket.Handler(wsHandler))
 	http.HandleFunc("/update", update)
 	http.HandleFunc("/map/", mapView)
-	http.HandleFunc("/", home)
+	http.HandleFunc("/", stream)
 	http.ListenAndServe(":8080", nil)
 }

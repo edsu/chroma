@@ -27,10 +27,6 @@
     });
   }
 
-  function isBot(update) {
-    return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)") 
-  }
-
   function add(msg) {
     var update = JSON.parse(msg.data);
 
@@ -66,7 +62,7 @@
     s.append('from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');
-    } 
+    }
     return s;
   }
 

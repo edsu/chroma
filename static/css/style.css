@@ -41,6 +41,10 @@ body {
   background-color: lightblue;
 }
 
+.search {
+  font-size: 14pt;
+}
+
 .search span {
   margin: 7px;
   padding: 7px;
@@ -51,6 +55,7 @@ body {
   margin :7px;
   padding: 7px;
   border-radius: 5px;
+  font-size: 14pt;
 }
 
 li {

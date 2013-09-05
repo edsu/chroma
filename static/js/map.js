@@ -1,7 +1,7 @@
 (function($) {
 
   var map = L.map('map', {
-    center: [35.8951, -97.0363],
+    center: [38.3, -97.0363],
     zoom: 5,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   });

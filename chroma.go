@@ -15,7 +15,7 @@ import (
 )
 
 var Root = ""
-var viewPattern = regexp.MustCompile(`http://chroniclingamerica.loc.gov/lccn/(\w+)/(?:(\d+-\d+-\d+)/)?(?:ed-(\d+)/)?(?:seq-(\d+)/)?`)
+var viewPattern = regexp.MustCompile(`http://chroniclingamerica.loc.gov/lccn/(\w+)/(?:(\d+-\d+-\d+)/)?(?:ed-(\d+)/)?(?:seq-(\d+)/)?$`)
 
 // hub and connection are abstractions for keeping track of open websocket
 // connections & sending broadcast events to them
@@ -132,14 +132,14 @@ type Search struct {
 	Date1     string   `json:"date1"`
 	Date2     string   `json:"date2"`
 	UserAgent string   `json:"userAgent"`
-	LCCN      []string `json:"lccn"`
+	Lccn      []string `json:"lccn"`
 	State     []string `json:"state"`
 }
 
 type View struct {
 	Type      string `json:"type"`
 	Url       string `json:"url"`
-	LCCN      string `json:"lccn"`
+	Lccn      string `json:"lccn"`
 	Date      string `json:"date"`
 	Edition   string `json:"edition"`
 	Page      string `json:"page"`
@@ -162,21 +162,27 @@ func NewUpdate(urlString string, userAgent string) interface{} {
 			Date1:     q.Get("date1"),
 			Date2:     q.Get("date2"),
 			State:     q["state"],
-			LCCN:      q["lccn"],
+			Lccn:      q["lccn"],
 			UserAgent: userAgent,
 		}
 	}
 
 	m := viewPattern.FindStringSubmatch(urlString)
-	return View{
+	v := View{
 		Type:      "view",
 		Url:       urlString,
-		LCCN:      m[1],
-		Date:      m[2],
-		Edition:   m[3],
-		Page:      m[4],
 		UserAgent: userAgent,
 	}
+	if len(m) >= 2 {
+		v.Lccn = m[1]
+	}
+	if len(m) >= 3 {
+		v.Date = m[2]
+	}
+	if len(m) >= 4 {
+		v.Page = m[3]
+	}
+	return v
 }
 
 func main() {

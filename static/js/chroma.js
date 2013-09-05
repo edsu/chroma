@@ -33,6 +33,10 @@
 
   function add(msg) {
     var update = JSON.parse(msg.data);
+
+    if (last && update.lccn == last.lccn && update.date == last.date && update.page == last.page) return;
+    last = update;
+
     if (pause) return;
     if (! bots && isBot(update)) return; 
 

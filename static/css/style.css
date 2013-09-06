@@ -72,6 +72,7 @@ li.update {
 #legend li {
   border-bottom: none;
   padding: 3px;
+  font-size: 12pt;
 }
 
 #updates {
@@ -89,6 +90,10 @@ li.update {
 
 #frontpages {
   text-align: center;
+}
+
+#frontpages img {
+  padding: 10px;
 }
 
 img {

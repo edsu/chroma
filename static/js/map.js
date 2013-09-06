@@ -2,12 +2,12 @@
 
   var map = L.map('map', {
     center: [38.3, -97.0363],
-    zoom: 5,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+    zoom: 5
   });
 
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 22
+    maxZoom: 22,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   }).addTo(map);
  
   $.getJSON("/js/newspapers.json", function(data) {

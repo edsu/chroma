@@ -18,6 +18,8 @@
     if (last && update.url == last.url) return;
     last = update;
 
+    if (isBot(update)) return;
+
     if (update.page != 1 || update.type != "view") return;
     var i = new Image();
     i.src = update.url + "medium.jpg"

@@ -5,6 +5,9 @@ function isBot(ua) {
   if (/yandex/i.exec(ua)) return "Yandex";
   if (/msnbot/i.exec(ua)) return "Bing";
   if (/blekko/i.exec(ua)) return "Blekko";
+  if (/archive.org/i.exec(ua)) return "Internet Archive";
+  if (/sogou/i.exec(ua)) return "Sogou";
+  if (/jike/i.exec(ua)) return "Jike";
   if (/(spider)|(bot)/i.exec(ua)) {
     console.log("found unrecognized bot: " + ua);
     return "Bot";

@@ -43,13 +43,7 @@ func (h *hub) run() {
 			close(c.send)
 		case m := <-h.broadcast:
 			for c := range h.connections {
-				select {
-				case c.send <- m:
-				default:
-					delete(h.connections, c)
-					close(c.send)
-					go c.ws.Close()
-				}
+				c.send <- m
 			}
 		}
 	}

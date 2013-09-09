@@ -29,6 +29,9 @@ type hub struct {
 }
 
 func (h *hub) run() {
+	if r := recover(); r != nil {
+		log.Println("recovered in run", r)
+	}
 	for {
 		select {
 		case c := <-h.register:
@@ -87,16 +90,23 @@ func Init() {
 	Root = path.Dir(filename)
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
+func stream(w http.ResponseWriter, r *http.Request) {
 	s := path.Join(Root, "templates/site.html")
-	f := path.Join(Root, "templates/home.html")
-	homeTemplate := template.Must(template.ParseFiles(s, f))
-	homeTemplate.Execute(w, nil)
+	f := path.Join(Root, "templates/stream.html")
+	streamTemplate := template.Must(template.ParseFiles(s, f))
+	streamTemplate.Execute(w, nil)
 }
 
 func mapView(w http.ResponseWriter, r *http.Request) {
 	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/map.html")
+	mapTemplate := template.Must(template.ParseFiles(s, f))
+	mapTemplate.Execute(w, nil)
+}
+
+func frontpagesView(w http.ResponseWriter, r *http.Request) {
+	s := path.Join(Root, "templates/site.html")
+	f := path.Join(Root, "templates/frontpages.html")
 	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
@@ -181,8 +191,8 @@ func NewUpdate(urlString string, userAgent string) interface{} {
 	if len(m) >= 3 {
 		v.Date = m[2]
 	}
-	if len(m) >= 4 {
-		v.Page = m[3]
+	if len(m) >= 5 {
+		v.Page = m[4]
 	}
 	return v
 }
@@ -197,6 +207,7 @@ func main() {
 	http.Handle("/stream", websocket.Handler(wsHandler))
 	http.HandleFunc("/update", update)
 	http.HandleFunc("/map/", mapView)
-	http.HandleFunc("/", home)
+	http.HandleFunc("/frontpages/", frontpagesView)
+	http.HandleFunc("/", stream)
 	http.ListenAndServe(":8080", nil)
 }

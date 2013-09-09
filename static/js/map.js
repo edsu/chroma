@@ -1,13 +1,13 @@
 (function($) {
 
   var map = L.map('map', {
-    center: [35.8951, -97.0363],
-    zoom: 5,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+    center: [38.3, -97.0363],
+    zoom: 5
   });
 
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 22
+    maxZoom: 22,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   }).addTo(map);
  
   $.getJSON("/js/newspapers.json", function(data) {
@@ -24,13 +24,9 @@
     }
   }
 
-  function isBot(update) {
-    return update.userAgent.match("(bingbot)|(googlebot)|(baidu)|(yandex)|(crawler)|(spider)") 
-  }
-
   function add(msg) {
     var update = JSON.parse(msg.data);
-    if (isBot(update)) return;
+    if (isBot(update.userAgent)) return;
 
     var lccn = update.lccn;
     var newspaper = newspapers[lccn];

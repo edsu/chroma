@@ -1,19 +1,19 @@
 {{define "content"}}
-
       <div class="container">
         <div class="row" style="margin-top: 20px;">
-          <div class="col-xs-6 col-sm-4 col-lg-2">
+          <div class="col-lg-2 hidden-sm">
 
           <div id="legend">
             <h3>Legend</h3>
             <ul class="list-unstyled">
-              <li class="search"><span class="any">any words</span></li>
-              <li class="search"><span class="all">all words</span></li>
-              <li class="search"><span class="phrase">phrase</span><br>
-              <li class="search"><span class="text">close words</span></li>
-              <li class="search"><span class="date">date</span></li>
-              <li class="search"><span class="place">place</span></li>
-              <li class="search"><span class="newspaper">newspaper</span></li>
+              <li class="update"><span class="newspaper">newspaper</span></li>
+              <li class="update"><span class="place">place</span></li>
+              <li class="update"><span class="date">date</span></li>
+              <li class="update"><span class="any">any words</span></li>
+              <li class="update"><span class="all">all words</span></li>
+              <li class="update"><span class="phrase">phrase</span><br>
+              <li class="update"><span class="text">close words</span></li>
+              <li class="update"><span class="bot">search engine</span></li>
             </ul>
 
             <br>
@@ -35,15 +35,15 @@
 
           </div>
 
-          <div class="col-xs-6 col-sm-4 col-lg-10">
-          <ul id="updates" class="col-4"></ul>
+          <div class="col-xs-12 col-sm-12 col-lg-10">
+          <ul id="updates" class="col-4 list-unstyled"></ul>
           </div>
 
       </div>
-
 {{end}}
 
 {{define "scripts"}}
       <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-      <script src="/js/chroma.js"></script>
+      <script src="/js/utils.js"></script>
+      <script src="/js/stream.js"></script>
 {{end}}

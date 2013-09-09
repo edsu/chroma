@@ -3274,8 +3274,8 @@
     "city": "Daytona", 
     "state": "Florida", 
     "geo": [
-      20.6001956, 
-      -100.4113213
+      29.2108147,
+      -81.0228331
     ], 
     "title": "The Daytona daily news."
   }, 
@@ -5734,8 +5734,8 @@
     "city": "Daytona", 
     "state": "Florida", 
     "geo": [
-      20.6001956, 
-      -100.4113213
+      29.2108147,
+      -81.0228331
     ], 
     "title": "The Daytona gazette=news."
   }, 
@@ -6567,7 +6567,7 @@
       35.2013516, 
       -111.639249
     ], 
-    "title": "The Coconino sun [microform]."
+    "title": "The Coconino sun."
   }, 
   "sn87062054": {
     "place_of_publication": "Flagstaff, Ariz.", 
@@ -8154,8 +8154,8 @@
     "city": "Daytona", 
     "state": "Florida", 
     "geo": [
-      20.6001956, 
-      -100.4113213
+      29.2108147,
+      -81.0228331
     ], 
     "title": "The gazette-news."
   }, 
@@ -8257,7 +8257,7 @@
       34.0522342, 
       -118.2436849
     ], 
-    "title": "The herald [microform]."
+    "title": "The herald."
   }, 
   "sn85042462": {
     "place_of_publication": "Los Angeles [Calif.]", 
@@ -8267,7 +8267,7 @@
       34.0522342, 
       -118.2436849
     ], 
-    "title": "Los Angeles herald [microform]."
+    "title": "Los Angeles herald."
   }, 
   "sn85042588": {
     "place_of_publication": "Bismarck, Dakota [N.D.]", 
@@ -9117,7 +9117,7 @@
       34.0522342, 
       -118.2436849
     ], 
-    "title": "Los Angeles daily herald [microform]."
+    "title": "Los Angeles daily herald."
   }, 
   "sn82014897": {
     "place_of_publication": "Prescott, Ariz", 
@@ -10987,7 +10987,7 @@
       34.0522342, 
       -118.2436849
     ], 
-    "title": "Daily Los Angeles herald [microform]."
+    "title": "Daily Los Angeles herald."
   }, 
   "sn83025309": {
     "place_of_publication": "Diamond City, Mont.", 

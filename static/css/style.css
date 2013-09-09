@@ -41,11 +41,15 @@ body {
   background-color: lightblue;
 }
 
-.search {
+.bot {
+  background-color: lightgreen;
+}
+
+.update {
   font-size: 14pt;
 }
 
-.search span {
+.update span {
   margin: 7px;
   padding: 7px;
   border-radius: 5px;
@@ -58,11 +62,17 @@ body {
   font-size: 14pt;
 }
 
-li.search {
+li.update {
   padding: 10px;
   list-style-type: none;
   line-height: 2;
   border-bottom: thin solid #dddddd;
+}
+
+#legend li {
+  border-bottom: none;
+  padding: 3px;
+  font-size: 12pt;
 }
 
 #updates {
@@ -76,4 +86,17 @@ li.search {
 #map {
   width: 100%;
   height: 100%;
+}
+
+#frontpages {
+  text-align: center;
+}
+
+#frontpages img {
+  padding: 10px;
+}
+
+img {
+  height: 600px;
+  vertical-align: top;
 }

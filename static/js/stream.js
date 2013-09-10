@@ -60,13 +60,13 @@
       s.append(' <span class="page">page ' + view.page + '</span> of ');
     }
     var title = newspaper['title'].replace(/\.$/, '');
-    s.append('<span class="newspaper">' + title + '</span>');
+    s.append(' <span class="newspaper">' + title + '</span>');
     s.append(' from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');
     }
     if (bot) {
-      s.append('<span class="bot">' + bot + '</span>');
+      s.append(' <span class="bot">' + bot + '</span>');
     }
     return s;
   }
@@ -75,19 +75,19 @@
     var s = $('<li class="update">Search: </li>');
 
     if (search.any) {
-      s.append('<span class="any">' + search.any + '</span>');
+      s.append(' <span class="any">' + search.any + '</span>');
     }
 
     if (search.all) {
-      s.append('<span class="all">' + search.all + '</span>');
+      s.append(' <span class="all">' + search.all + '</span>');
     }
 
     if (search.phrase) {
-      s.append('<span class="phrase">' + search.phrase + '</span>');
+      s.append(' <span class="phrase">' + search.phrase + '</span>');
     }
 
     if (search.text) {
-      s.append('<span class="text">' + search.text + '</span>');
+      s.append(' <span class="text">' + search.text + '</span>');
     }
 
     if (search.lccn && newspapers && search.lccn[0] != "") {
@@ -96,7 +96,7 @@
       var parts = [];
       for (var i=0; i<search.lccn.length; i++) {
         var lccn = search.lccn[i];
-        parts.push('<span class="newspaper">' + title + '</span>');
+        parts.push(' <span class="newspaper">' + title + '</span>');
       }
       s.append( " in " + parts.join(" and "));
     }
@@ -109,7 +109,7 @@
       var parts = [];
       for (var i=0; i<search.state.length; i++) {
         var state = search.state[i];
-        parts.push('<span class="place">' + state + '</span>');
+        parts.push(' <span class="place">' + state + '</span>');
       }
       s.append(' in ' + parts.join(" and "));
     }

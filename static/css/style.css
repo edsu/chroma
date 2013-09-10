@@ -94,9 +94,6 @@ li.update {
 
 #frontpages img {
   padding: 10px;
-}
-
-img {
   height: 600px;
   vertical-align: top;
 }
@@ -112,5 +109,10 @@ img {
       margin: 0px;
       padding: 5px;
       border-radius: 2px;
+    }
+    #frontpages img {
+      padding; 3px;
+      height: 400px;
+      vertical-align: top;
     }
 }

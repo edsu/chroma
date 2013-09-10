@@ -27,7 +27,11 @@
       var li = $('<li><a target="_new" href="' + update.url + '"><img src="' + i.src + '"></a></li>');
       li.hide();
       $("#frontpages").prepend(li);
-      li.fadeIn(1500);
+      if ($.browser.mobile) {
+        li.slideDown(750);
+      } else {
+        li.fadeIn(1500);
+      }
     }, false);
   }
 

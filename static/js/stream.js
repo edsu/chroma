@@ -61,7 +61,7 @@
     }
     var title = newspaper['title'].replace(/\.$/, '');
     s.append('<span class="newspaper">' + title + '</span>');
-    s.append('from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
+    s.append(' from <span class="place">' + newspaper['city'] + ', ' + newspaper['state'] + '</span>');
     if (view.date) {
       s.append(' on <span class="date">' + view.date + '</span>');
     }
@@ -114,7 +114,7 @@
       s.append(' in ' + parts.join(" and "));
     }
     if (search.page && search.page != "1") {
-        s.append('<span class="page">page ' + search.page + '</span>');
+        s.append(' <span class="page">page ' + search.page + '</span>');
     }
 
     return s;

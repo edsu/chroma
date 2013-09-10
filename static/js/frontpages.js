@@ -28,7 +28,7 @@
       li.hide();
       $("#frontpages").prepend(li);
       if ($.browser.mobile) {
-        li.slideDown(750);
+        li.slideDown(500);
       } else {
         li.fadeIn(1500);
       }

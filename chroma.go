@@ -29,9 +29,6 @@ type hub struct {
 }
 
 func (h *hub) run() {
-	if r := recover(); r != nil {
-		log.Println("recovered in run", r)
-	}
 	for {
 		select {
 		case c := <-h.register:

@@ -90,6 +90,17 @@
       s.append('<span class="text">' + search.text + '</span>');
     }
 
+    if (search.lccn && newspapers && search.lccn[0] != "") {
+      var newspaper = newspapers[search.lccn];
+      var title = newspaper.title.replace(/\.$/, '');
+      var parts = [];
+      for (var i=0; i<search.lccn.length; i++) {
+        var lccn = search.lccn[i];
+        parts.push('<span class="newspaper">' + title + '</span>');
+      }
+      s.append( " in " + parts.join(" and "));
+    }
+
     if (search.date1 && search.date2 && search.date1 != "1836" && search.date2 != "1922") {
       s.append(' during <span class="date">' + search.date1 + ' - ' + search.date2 + '</span>');
     }
@@ -102,16 +113,6 @@
       }
       s.append(' in ' + parts.join(" and "));
     }
-
-    if (search.lccn && newspapers && search.lccn[0] != "") {
-      var parts = [];
-      for (var i=0; i<search.lccn.length; i++) {
-        var lccn = search.lccn[i];
-        parts.push('<span class="newspaper">' + newspapers[lccn]['title'] + '</span>');
-      }
-      s.append( " in " + parts.join(" and "));
-    }
-
     if (search.page && search.page != "1") {
         s.append('<span class="page">page ' + search.page + '</span>');
     }

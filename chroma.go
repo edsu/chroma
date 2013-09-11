@@ -211,7 +211,7 @@ func main() {
 
 	log.Println("starting server on", *addr)
 	if *addr == ":443" {
-		if err := http.ListenAndServeTLS(":443", "cert.pem", "key.pem", nil); err !=
+		if err := http.ListenAndServeTLS(":443", "server.cert", "server.key", nil); err !=
 			nil {
 			log.Println(err)
 		}

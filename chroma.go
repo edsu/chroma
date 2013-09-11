@@ -86,11 +86,6 @@ func Init() {
 	Root = path.Dir(filename)
 }
 
-func redirectToSSL(w http.ResponseWriter, r *http.Request) {
-	log.Println("redirecting to ssl")
-	http.Redirect(w, r, "https://"+r.URL.Host+r.URL.Path, http.StatusMovedPermanently)
-}
-
 func stream(w http.ResponseWriter, r *http.Request) {
 	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/stream.html")

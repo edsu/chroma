@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -204,5 +205,19 @@ func main() {
 	http.HandleFunc("/map/", mapView)
 	http.HandleFunc("/frontpages/", frontpagesView)
 	http.HandleFunc("/", stream)
-	http.ListenAndServe(":8080", nil)
+
+	var addr = flag.String("addr", ":8080", "address to listen on")
+	flag.Parse()
+
+	log.Println("starting server on", *addr)
+	if *addr == ":443" {
+		if err := http.ListenAndServeTLS(":443", "cert.pem", "key.pem", nil); err !=
+			nil {
+			log.Println(err)
+		}
+	} else {
+		if err := http.ListenAndServe(*addr, nil); err != nil {
+			log.Println(err)
+		}
+	}
 }

@@ -87,6 +87,7 @@ func Init() {
 }
 
 func redirectToSSL(w http.ResponseWriter, r *http.Request) {
+	log.Println("redirecting to ssl")
 	http.Redirect(w, r, "https://"+r.URL.Host+r.URL.Path, http.StatusMovedPermanently)
 }
 

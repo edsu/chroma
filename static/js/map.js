@@ -7,7 +7,7 @@
     zoom: 5
   });
 
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://ssl_tiles.cloudmade.com/82fc33f781f34ccd999c5ddefa49420e//1/256/{z}/{x}/{y}.png', {
     maxZoom: 22,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   }).addTo(map);

@@ -11,7 +11,8 @@
   });
 
   function main() {
-    var socket = new WebSocket('ws://'+ document.location.host + "/stream");
+    var wsproto = document.location.protocol == "https:" ? "wss:" : "ws:";
+    var socket = new WebSocket(wsproto + '//'+ document.location.host + "/stream");
     socket.onerror = function (error) {
       console.log(error);
     }

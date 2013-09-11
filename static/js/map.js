@@ -1,5 +1,7 @@
 (function($) {
 
+  L.Icon.Default.imagePath = '/images/';
+
   var map = L.map('map', {
     center: [38.3, -97.0363],
     zoom: 5
@@ -15,7 +17,8 @@
   });
 
   function listen() {
-    var socket = new WebSocket('ws://'+ document.location.host + "/stream");
+    var wsproto = document.location.protocol == "https:" ? "wss:" : "ws:";
+    var socket = new WebSocket(wsproto + '//'+ document.location.host + "/stream");
     socket.onerror = function (error) {
       console.log(error);
     }

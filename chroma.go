@@ -86,6 +86,10 @@ func Init() {
 	Root = path.Dir(filename)
 }
 
+func redirectToSSL(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://"+r.URL.Host+r.URL.Path, http.StatusMovedPermanently)
+}
+
 func stream(w http.ResponseWriter, r *http.Request) {
 	s := path.Join(Root, "templates/site.html")
 	f := path.Join(Root, "templates/stream.html")
@@ -211,10 +215,8 @@ func main() {
 
 	log.Println("starting server on", *addr)
 	if *addr == ":443" {
-		if err := http.ListenAndServeTLS(":443", "server.crt", "server.key", nil); err !=
-			nil {
-			log.Println(err)
-		}
+		go http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
+		http.ListenAndServe(":80", http.HandlerFunc(redirectToSSL))
 	} else {
 		if err := http.ListenAndServe(*addr, nil); err != nil {
 			log.Println(err)

@@ -28,11 +28,36 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
+                        cwd: 'static/',
+                        src: ['**/*.*'],
+                        dest: 'dist/static/'
+                    },
+                    {
+                        expand: true,
                         cwd: 'bower_components/repositoryservicestheme/dist/',
                         src: '**',
-                        dest: 'static/<%= bower.version %>'
-                    }
+                        dest: 'dist/static/'
+                    },
+                    {
+                        src: ['templates/*'],
+                        dest: 'dist/'
+                    },
                 ]
+            }
+        },
+        hashres: {
+            options: {
+                encoding: 'utf8',
+                fileNameFormat: '${hash}~${name}.${ext}',
+                renameFiles: true
+            },
+            prod: {
+                options: {
+                },
+                // Files to hash
+                src: ['dist/static/**/*.*', '!dist/static/**/*~*.*', '!dist/static/robots.txt', '!dist/static/favicon.ico'],
+                // File that refers to above files and needs to be updated with the hashed name
+                dest: ['dist/templates/*.html'],
             }
         }
     });
@@ -46,7 +71,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dist-theme', ['copy']);
 
     // Full distribution task.
-    grunt.registerTask('dist', ['clean', 'dist-theme']);
+    grunt.registerTask('dist', ['clean', 'dist-theme', 'hashres']);
 
     // Default task.
     grunt.registerTask('default', ['shell:goinstall', 'test', 'dist']);

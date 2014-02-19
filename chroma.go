@@ -10,12 +10,11 @@ import (
 	"net/url"
 	"path"
 	"regexp"
-	"runtime"
 
 	"code.google.com/p/go.net/websocket"
 )
 
-var Root = ""
+var Root *string
 var viewPattern = regexp.MustCompile(`http://chroniclingamerica.loc.gov/lccn/(\w+)/(?:(\d+-\d+-\d+)/)?(?:ed-(\d+)/)?(?:seq-(\d+)/)?$`)
 
 // hub and connection are abstractions for keeping track of open websocket
@@ -81,28 +80,23 @@ func wsHandler(ws *websocket.Conn) {
 	c.writer()
 }
 
-func Init() {
-	_, filename, _, _ := runtime.Caller(0)
-	Root = path.Dir(filename)
-}
-
 func stream(w http.ResponseWriter, r *http.Request) {
-	s := path.Join(Root, "templates/site.html")
-	f := path.Join(Root, "templates/stream.html")
+	s := path.Join(*Root, "templates/site.html")
+	f := path.Join(*Root, "templates/stream.html")
 	streamTemplate := template.Must(template.ParseFiles(s, f))
 	streamTemplate.Execute(w, nil)
 }
 
 func mapView(w http.ResponseWriter, r *http.Request) {
-	s := path.Join(Root, "templates/site.html")
-	f := path.Join(Root, "templates/map.html")
+	s := path.Join(*Root, "templates/site.html")
+	f := path.Join(*Root, "templates/map.html")
 	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
 
 func frontpagesView(w http.ResponseWriter, r *http.Request) {
-	s := path.Join(Root, "templates/site.html")
-	f := path.Join(Root, "templates/frontpages.html")
+	s := path.Join(*Root, "templates/site.html")
+	f := path.Join(*Root, "templates/frontpages.html")
 	mapTemplate := template.Must(template.ParseFiles(s, f))
 	mapTemplate.Execute(w, nil)
 }
@@ -194,9 +188,12 @@ func NewUpdate(urlString string, userAgent string) interface{} {
 }
 
 func main() {
-	Init()
+	Root = flag.String("root", ".", "...")
+	addr := flag.String("addr", ":8080", "address to listen on")
+	flag.Parse()
+
 	go h.run()
-	static := http.FileServer(http.Dir(path.Join(Root, "static/")))
+	static := http.FileServer(http.Dir(path.Join(*Root, "static/")))
 	http.Handle("/js/", static)
 	http.Handle("/css/", static)
 	http.Handle("/images/", static)
@@ -205,9 +202,6 @@ func main() {
 	http.HandleFunc("/map/", mapView)
 	http.HandleFunc("/frontpages/", frontpagesView)
 	http.HandleFunc("/", stream)
-
-	var addr = flag.String("addr", ":8080", "address to listen on")
-	flag.Parse()
 
 	log.Println("starting server on", *addr)
 	if *addr == ":443" {

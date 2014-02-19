@@ -1,0 +1,7 @@
+{
+    "name": "chroma",
+    "version": "0.0.1",
+    "dependencies": {
+      "repositoryservicestheme": "git@github.com:loc-rdc/repository-services-theme.git#0.0.4"
+    }
+}

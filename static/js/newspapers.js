@@ -1,4 +1,4 @@
-{
+var newspapers = {
   "sn93067634": {
     "place_of_publication": "Pickens, S.C.", 
     "city": "Pickens", 
@@ -11049,4 +11049,4 @@
     ], 
     "title": "San Juan County index."
   }
-}
+};

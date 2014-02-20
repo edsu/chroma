@@ -12,10 +12,6 @@
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   }).addTo(map);
  
-  $.getJSON("/js/newspapers.json", function(data) {
-    newspapers = data;
-  });
-
   function listen() {
     var wsproto = document.location.protocol == "https:" ? "wss:" : "ws:";
     var socket = new WebSocket(wsproto + '//'+ document.location.host + "/stream");

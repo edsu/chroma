@@ -1,14 +1,9 @@
 (function($) {
 
-  var newspapers = {}
   var last = null;
   var pause = false;
   var filter = 'all';
   var bots = false;
-
-  $.getJSON("/js/newspapers.json", function(data) {
-    newspapers = data;
-  });
 
   function main() {
     var wsproto = document.location.protocol == "https:" ? "wss:" : "ws:";

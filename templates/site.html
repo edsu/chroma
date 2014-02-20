@@ -7,24 +7,33 @@
     <link href="/css/repository-services-theme.css" rel="stylesheet" media="screen">
   </head>
   <body>
-      <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Chronicling America Live</a>
-          </div>
-          <div class="navbar-collapse collapse header">
-            <ul class="nav navbar-nav">
-              <li><a href="/">Stream</a></li>
-              <li><a href="/map/">Map</a></li>
-              <li><a href="/frontpages/">Front Pages</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="container header">
+      <div class="logo"><a href="http://www.loc.gov/"><img src="/images/lc_logo.jpg" alt="Library of Congress Logo"></a></div>
+      <div class="brand">Chroma</div>
+    </div>
+
+    <div class="container">
+      <nav class="navbar navbar-default" role="navigation">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+	  </button>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="navbar-collapse-1">
+	  <ul class="nav navbar-nav">
+            <li><a href="/">Stream</a></li>
+            <li><a href="/map/">Map</a></li>
+            <li><a href="/frontpages/">Front Pages</a></li>
+	  </ul>
+	</div>
+      </nav>
+    </div>
 
       {{template "content" .}}
 
